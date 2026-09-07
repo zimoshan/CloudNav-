@@ -31,6 +31,13 @@ jobs:
       - name: Build
         run: npm run build
 
+      # PASSWORD 来自仓库 Secret，运行期注入 wrangler.jsonc（不落库）
+      - name: Inject PASSWORD into wrangler config
+        env:
+          CLOUDNAV_PASSWORD: ${{ secrets.CLOUDFLARE_CLOUDNAV_PASSWORD }}
+        run: |
+          node -e "const fs=require('fs');const c=JSON.parse(fs.readFileSync('wrangler.jsonc','utf8'));c.vars=c.vars||{};c.vars.PASSWORD=process.env.CLOUDNAV_PASSWORD;fs.writeFileSync('wrangler.jsonc',JSON.stringify(c,null,2));"
+
       - name: Deploy with Wrangler
         uses: cloudflare/wrangler-action@v3
         with:

@@ -2,5 +2,8 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "cloudnav",
   "pages_build_output_dir": "./dist",
-  "compatibility_date": "2026-09-07"
+  "compatibility_date": "2026-09-07",
+  "kv_namespaces": [
+    { "binding": "CLOUDNAV_KV", "id": "3fa9e7b090d5432a997750f1c3c46878" }
+  ]
 }
